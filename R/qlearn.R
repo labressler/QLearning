@@ -23,3 +23,51 @@ qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=50,...
   }
   return (initial[-(1),])
 }
+
+qlearningupdate <- function(q,currentstate,currentaction,currentreward,nextstate=NULL,discount=.5,gamma=.25)
+{
+  rndn <- runif(1,0,1)
+  if ((nrow(q) > 0) & (currentstate %in% rownames(q)))
+  {
+    q[currentstate,currentaction] <- (q[currentstate,currentaction] + discount*currentreward)/(1+discount)
+  } else {
+    qvec <- rep(0,ncol(q))
+    if(nrow(q)>0)
+    {
+      q <- rbind.data.frame(q,qvec)
+    } else {
+      q[1,] <- as.numeric(qvec)
+    }
+    rownames(q)[nrow(q)] <- currentstate
+    if(nchar(currentstate)==4)
+    {
+      #print(paste0(currentstate,currentreward))
+    }
+    q[currentstate,currentaction] <- (q[currentstate,currentaction] + discount*currentreward)/(1+discount)
+  }
+  return(q)
+}
+
+qlearningaction <- function(q,currentstate,exploration=.5)
+{
+  rndn <- runif(1,0,1)
+  if (currentstate %in% rownames(q))
+  {
+    vec <- q[currentstate,]
+    if (rndn<exploration)
+    {
+      statenum <- sample.int(ncol(q),1)
+      retstate <- colnames(q)[statenum]
+      return(retstate)
+    } else {
+      statenum <- which(vec==max(vec))
+      statenum <- sample(statenum,1)
+      retstate <- colnames(q)[statenum]
+      return(retstate)
+    }
+  } else {
+    statenum <- sample.int(ncol(q),1)
+    retstate <- colnames(q)[statenum]
+    return(retstate)
+  }
+}
