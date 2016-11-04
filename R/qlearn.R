@@ -1,8 +1,14 @@
-qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=50,...)
+qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=1000,prevstrategy=NULL,...)
 {
-  initial <- rep(1/length(possibleactions),length(possibleactions))
-  names(initial) <- possibleactions
-  initial <- as.data.frame(t(initial))
+  if (is.null(prevstrategy))
+  {
+    initial <- rep(1/length(possibleactions),length(possibleactions))
+    names(initial) <- possibleactions
+    initial <- as.data.frame(t(initial))
+    initial <- initial[-(1),]
+  } else {
+    initial <- prevstrategy
+  }
   newgame <- get(game)
   ngbody <- as.list(body(newgame))
   nglist <- which(grepl("Choose",as.character(ngbody),ignore.case=T) & grepl(playername,as.character(ngbody),ignore.case=T))
@@ -21,7 +27,7 @@ qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=50,...
     rew <- as.numeric(newgame(...))
     initial <- qlearningupdate(initial,currentstate,curraction1,rew)
   }
-  return (initial[-(1),])
+  return (initial)
 }
 
 qlearningupdate <- function(q,currentstate,currentaction,currentreward,nextstate=NULL,discount=.5,gamma=.25)
