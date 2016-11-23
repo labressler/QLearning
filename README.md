@@ -1,6 +1,6 @@
 # QLearning
 
-This repository implements (Q-Learning)[http://artint.info/html/ArtInt_265.html], a model-free form of reinforcement learning in R.
+This repository implements [Q-Learning](http://artint.info/html/ArtInt_265.html), a model-free form of reinforcement learning in R.
 
 
 **To download**: In your R console, type:
