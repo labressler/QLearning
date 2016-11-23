@@ -9,8 +9,6 @@ qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=1000,p
   } else {
     initial <- prevstrategy
   }
-  allstatevec <- vector()
-  allactionvec <- vector()
   newgame <- get(game)
   ngbody <- as.list(body(newgame))
   nglist <- which(grepl("Choose",as.character(ngbody),ignore.case=T) & grepl(playername,as.character(ngbody),ignore.case=T))
@@ -27,6 +25,8 @@ qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=1000,p
   })
   for (ii in 1:numiter)
   {
+    allstatevec <- vector()
+    allactionvec <- vector()
     rew <- as.numeric(newgame(...))
     for (statenum in length(allstatevec))
     {
