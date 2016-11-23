@@ -1,7 +1,7 @@
-\name{QLearning}
-\alias{QLearning}
+\name{qlearn}
+\alias{qlearn}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ QLearning
+\title{ qlearn
 }
 \description{
   This repository implements \link[http://artint.info/html/ArtInt_265.html]{Q-Learning}, a model-free form of reinforcement learning in R.
