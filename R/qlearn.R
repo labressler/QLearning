@@ -25,8 +25,8 @@ qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=1000,p
   })
   for (ii in 1:numiter)
   {
-    allstatevec <- vector()
-    allactionvec <- vector()
+    allstatevec <<- vector()
+    allactionvec <<- vector()
     rew <- as.numeric(newgame(...))
     for (statenum in length(allstatevec))
     {
