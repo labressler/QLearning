@@ -12,12 +12,20 @@ qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=1000,p
   newgame <- get(game)
   ngbody <- as.list(body(newgame))
   nglist <- which(grepl("Choose",as.character(ngbody),ignore.case=T) & grepl(playername,as.character(ngbody),ignore.case=T))
+  funcclass <- class(body(newgame)[[nglist]])
+  while(funcclass!="<-")
+  {
+    nglist <- append(nglist,which(grepl("Choose",body(newgame)[[nglist]])))
+    funcclass <- class(body(newgame)[[nglist]])
+  }
   body(newgame)[[nglist]] <- substitute({
     statevec <<- vector()
     for (jj in statevars)
     {
       statevec <<- append(statevec,get(jj))
     }
+    allstatevec <<- vector()
+    allactionvec <<- vector()
     currentstate <<- paste(statevec,collapse=" ")
     allstatevec <<- append(allstatevec,currentstate)
     assign(playername,qlearningaction(q=initial,currentstate=currentstate))
@@ -25,8 +33,6 @@ qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=1000,p
   })
   for (ii in 1:numiter)
   {
-    allstatevec <<- vector()
-    allactionvec <<- vector()
     rew <- as.numeric(newgame(...))
     for (statenum in length(allstatevec))
     {
