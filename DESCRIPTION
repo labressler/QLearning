@@ -1,9 +1,10 @@
 Package: QLearning
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Title: Reinforcement Learning using the Q Learning Algorithm
+Version: 0.1.1
+Author: Liam Bressler
+Maintainer: Liam Bressler <liam.bressler@yale.edu>
+Description: This repository implements Q-Learning, a model-free form of reinforcement learning in R.
+License: GNU General Public License
 LazyData: TRUE
+RoxygenNote: 6.0.1

@@ -4,10 +4,11 @@
 \title{ qlearn
 }
 \description{
-  This repository implements \link[http://artint.info/html/ArtInt_265.html]{Q-Learning}, a model-free form of reinforcement learning in R.
+  Input a \emph{game} that has variables \emph{statevars} (which the player can keep track of). The player can perform any of \emph{possibleactions}. The output matrix will give the expected value of each action (column) in each state (row).
 }
 \usage{
-qlearn <- function(game,statevars,possibleactions,playername="P1",numiter=1000,prevstrategy=NULL,...)
+qlearn(game, statevars, possibleactions, playername="P1",
+  numiter=1000, prevstrategy=NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -54,9 +55,9 @@ Contact at liam.bressler@yale.edu
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
+%%\seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+%%}
 \examples{
 cardgame <- function()
 {
@@ -80,13 +81,14 @@ cardgame <- function()
     playersinpot <- append(playersinpot,1)
   }
   potsize <- -1*(sum(playertotals)) #the amount in the pot is how much the players put in
-  playercards[!(1:4 %in% playersinpot)] <- 0 #get rid of everyone who folded
+  playercards[!(1:4 \%in\% playersinpot)] <- 0 #get rid of everyone who folded
   winner <- which.max(playercards) #winner is the person with the highest card who didn't fold
   playertotals[winner] <- playertotals[winner]+potsize
   return(playertotals[1]) #return how much we won
 }
 
-strat <- qlearn(game="cardgame",statevars="ourcard",possibleactions=c("Call","Fold"),playername="player1",numiter=25000) #make sure each function and variable name is a string
+strat <- qlearn(game="cardgame",statevars="ourcard",possibleactions=c("Call","Fold"),
+  playername="player1",numiter=25000) #make sure each function and variable name is a string
 
 strat
 
